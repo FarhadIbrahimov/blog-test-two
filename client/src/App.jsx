@@ -22,10 +22,11 @@ function App() {
 
   const [user, setUser] = useState({})
   const [isLoading, setIsLoading] = useState(true)
-
+  console.log(baseURL)
   async function getUser() {
     
     try {
+      
       const response = await axios.get('/api/users', {
         headers: {
           baseURL,

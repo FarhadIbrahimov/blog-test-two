@@ -1,3 +1,3 @@
-const baseURL = process.env.NODE_ENV === 'production' ? import.meta.env.VITE_APP : ''
+const baseURL = import.meta.env.PROD ? import.meta.env.VITE_API : ''
 
 export default baseURL
