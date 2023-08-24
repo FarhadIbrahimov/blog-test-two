@@ -1,4 +1,4 @@
-import axios from "axios"
+import axios from "../../api"
 import { useState, useEffect, useRef } from "react"
 import { useParams, useNavigate } from "react-router-dom"
 

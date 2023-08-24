@@ -1,5 +1,3 @@
-import axios from 'axios'
-
 import { useEffect, useState } from 'react'
 import { Routes, Route, Navigate } from 'react-router-dom';
 
@@ -16,7 +14,7 @@ import Login from './pages/users/Login';
 
 import Navbar from './components/Navbar';
 
-import baseURL from './api'
+import axios from './api'
 
 function App() {
 
@@ -29,11 +27,9 @@ function App() {
       
       const response = await axios.get('/api/users', {
         headers: {
-          baseURL,
           Authorization: `Bearer ${localStorage.getItem('token')}`
         }
       })
-      console.log('here?')
       console.log(response)
       setUser(response.data)
     } catch(err) {

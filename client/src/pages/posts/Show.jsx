@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react"
 import { useNavigate, useParams, Link } from 'react-router-dom'
 
-import axios from 'axios'
+import axios from '../../api'
 
 function Show({ user }) {
 

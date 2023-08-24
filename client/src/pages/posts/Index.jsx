@@ -1,9 +1,7 @@
-import axios from 'axios'
-
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 
-import baseURL from '../../api'
+import axios from '../../api'
 
 function Index({ user }) {
 
@@ -14,13 +12,9 @@ function Index({ user }) {
     async function getPosts() {
         try {
             console.log('v1.00')
-            const response = await axios.get(baseURL + '/api/posts')
-            console.log(response.data)
-            console.log(response)
+            const response = await axios.get('/api/posts')
             setPosts(response.data)
-            console.log('no catch... for getPost of Index.jsx')
         } catch(err) {
-            console.log('in catch for getPost of Index.jsx')
             console.log(err)
         }
     }
