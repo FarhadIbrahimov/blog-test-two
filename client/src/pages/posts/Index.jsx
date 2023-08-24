@@ -19,18 +19,21 @@ function Index({ user }) {
                 }
             })
             console.log(response.data)
+            console.log(response)
             setPosts(response.data)
-            console.log('no catch... for getPost of Edit.jsx')
+            console.log('no catch... for getPost of Index.jsx')
             console.log(baseURL)
-            const yep = await axios.get(baseURL + '/api/posts', {
-                headers: {
-                    baseURL
-                }
-            })
-            console.log('attempt #2:')
-            console.log(yep)
+            console.log('attempt 2')
+            let test = await axios.get(baseURL + '/api/posts')
+            console.log(test)
+            console.log('attempt 3')
+            let test2 = await axios.get('https://blog-backend-3ztu.onrender.com/api/posts')
+            console.log(test2)
+            console.log('attempt 4')
+            let test3 = await axios.get('http://blog-backend-3ztu.onrender.com/api/posts')
+            console.log(test3)
         } catch(err) {
-            console.log('in catch for getPost of Edit.jsx')
+            console.log('in catch for getPost of Index.jsx')
             console.log(err)
         }
     }
