@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { useNavigate } from "react-router-dom"
+import { useNavigate, Link } from "react-router-dom"
 
 import axios from '../../api'
 
@@ -30,7 +30,7 @@ function Index({ user }) {
 
                         {posts.map((post, index) => 
                             <div className="a-post" key={index}>
-                                <a href={`/posts/${post._id}`}>{post.subject}</a>
+                                <Link to={`/posts/${post._id}`}>{post.subject}</Link>
                             </div>
                         )}
             

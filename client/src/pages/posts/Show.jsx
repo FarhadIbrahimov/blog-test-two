@@ -48,7 +48,6 @@ function Show({ user }) {
                   Authorization: `Bearer ${localStorage.getItem('token')}`
                 }
             })
-            navigate('/posts')
             let updatedPost = { ...post }
             updatedPost.comments = updatedPost.comments.filter(c => c._id !== commentId)
             setPost(updatedPost)
