@@ -13,10 +13,10 @@ module.exports.create = async (req, res) => {
                 comments: comment._id
             }
         })
-        res.json(comment)
+        res.status(200).json(comment)
     } catch(err) {
         console.log(err)
-        res.json({ error: err.message })
+        res.status(400).json({ error: err.message })
     }
 }
 
@@ -24,7 +24,7 @@ module.exports.delete = async (req, res) => {
     // delete a comment by updating the comments property in post
     try {
         // first use the comment id to delete the comment from the comments collection
-        await Comments.findByIdAndDelete(req.params.commentId)
+        await Comments.findOneAndDelete({ _id: req.params.commentId, user: req.username })
         // then use the post id to find the post
         await Posts.findByIdAndUpdate(req.params.postId, {
             // pull/remeove the reference id of the comment we deleted
@@ -32,10 +32,10 @@ module.exports.delete = async (req, res) => {
                 comments: req.params.commentId
             }
         })
-        res.json({ message: "successfully deleted" })
+        res.status(200).json({ message: "successfully deleted" })
     } catch(err) {
         console.log(err.message)
-        res.json({ error: err.message })
+        res.status(400).json({ error: err.message })
     }
 }
 
@@ -43,10 +43,10 @@ module.exports.index = async (req, res) => {
     // target the comments property 
     try {
         const post = await Posts.findById(req.params.postId).populate('comments')
-        res.json(post.comments)
+        res.status(200).json(post.comments)
     }  catch(err) {
         console.log(err.message)
-        res.json({ error: err.message })
+        res.status(400).json({ error: err.message })
     }
 }
 
@@ -55,22 +55,31 @@ module.exports.show = async (req, res) => {
     console.log('GET /comments/:id')
     try {
         console.log(req.params)
-        const comment = await Comments.findById(req.params.commentId)
+        const comment = await Comments.findOne({ _id: req.params.commentId, user: req.username })
+   
+        if (!comment) {
+            throw new Error('Access denied')
+        }
         console.log(comment)
-        res.json(comment)
+        res.status(200).json(comment)
     } catch(err) {
         console.log(err.message)
-        res.json({ error: err.message })
+        res.status(400).json({ error: err.message })
     }
 }
 
 module.exports.update = async (req, res) => {
     // update a comment by updating an item in the comments property in post
     try {
-        await Comments.findByIdAndUpdate(req.params.commentId, req.body)
-        res.json({ message: 'successfully updated' })
+        const comment = await Comments.findOneAndUpdate({ _id: req.params.commentId, user: req.username }, req.body)
+  
+        if (!comment) {
+            throw new Error('Access denied')
+        }
+        
+        res.status(200).json({ message: 'successfully updated' })
     } catch(err) {
         console.log(err.message)
-        res.json({ error: err.message })
+        res.status(400).json({ error: err.message })
     }
 }

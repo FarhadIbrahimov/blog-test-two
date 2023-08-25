@@ -2,6 +2,7 @@ const jwt = require('jsonwebtoken')
 
 function authorize(req, res, next) {
     console.log('authorizing...')
+
     try {
         // 1. Check if the request has a token (in the Authorization header)
 

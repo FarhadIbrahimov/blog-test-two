@@ -2,7 +2,7 @@ import axios from "../../api"
 import { useState, useEffect, useRef } from "react"
 import { useParams, useNavigate } from "react-router-dom"
 
-function Edit() {
+function Edit({ user }) {
 
     const [post, setPost] = useState({})
 
@@ -15,10 +15,15 @@ function Edit() {
     async function getPost() {
         try {
             const response = await axios.get(`/api/posts/${id}`)
-            console.log(response.data)
+  
+            if (response.data.user !== user) {
+                throw new Error('User access denied')
+            }
+
             setPost(response.data)
         } catch(err) {
             console.log(err.message)
+            navigate('/posts')
         }
     }
 

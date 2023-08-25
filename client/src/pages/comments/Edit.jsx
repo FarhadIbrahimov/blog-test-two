@@ -25,6 +25,7 @@ function Edit() {
             setComment(response.data)
         } catch(err) {
             console.log(err)
+            navigate('/posts')
         }
     }
 
